@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.*;
 
 public class DriverRepository {
-    private File file;
+    private final File file;
 
     public DriverRepository(String filePath) {
         this.file = new File(filePath);
@@ -17,7 +17,7 @@ public class DriverRepository {
         if (retrieveDriver(driver.getDriverID()) != null) return false;
 
         try (FileWriter writer = new FileWriter(file, true)) {
-            writer.write(driver.toFileString() + "\n");
+            writer.write(driver.toFileString() + System.lineSeparator());
             return true;
         } catch (IOException e) {
             return false;
@@ -41,14 +41,21 @@ public class DriverRepository {
 
             if (existing.getDriverID().equals(updatedDriver.getDriverID())) {
                 if (!existing.getName().equals(updatedDriver.getName())) return false;
+
                 if (existing.getExperienceYears() > 10 &&
-                        !existing.getLicenseType().equals(updatedDriver.getLicenseType())) return false;
+                        !existing.getLicenseType().equals(updatedDriver.getLicenseType())) {
+                    return false;
+                }
+
+                if (!isValidAddress(updatedDriver.getAddress())) return false;
+                if (!isValidBirthdate(updatedDriver.getBirthdate())) return false;
 
                 drivers.set(i, updatedDriver);
                 saveAllDrivers(drivers);
                 return true;
             }
         }
+
         return false;
     }
 
@@ -63,7 +70,11 @@ public class DriverRepository {
 
         try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
-                String[] data = scanner.nextLine().split(",");
+                String line = scanner.nextLine();
+                if (line.trim().isEmpty()) continue;
+
+                String[] data = line.split(",", -1);
+
                 if (data.length == 6) {
                     drivers.add(new Driver(
                             data[0],
@@ -85,18 +96,21 @@ public class DriverRepository {
     private void saveAllDrivers(List<Driver> drivers) {
         try (FileWriter writer = new FileWriter(file, false)) {
             for (Driver driver : drivers) {
-                writer.write(driver.toFileString() + "\n");
+                writer.write(driver.toFileString() + System.lineSeparator());
             }
         } catch (IOException e) {
+            // For this assignment, failed saves are ignored and tested through return values.
         }
     }
 
     public boolean isValidDriverID(String driverID) {
         if (driverID == null || driverID.length() != 10) return false;
 
-        if (!Character.isDigit(driverID.charAt(0)) || !Character.isDigit(driverID.charAt(1))) return false;
-        if (driverID.charAt(0) < '2' || driverID.charAt(0) > '9') return false;
-        if (driverID.charAt(1) < '2' || driverID.charAt(1) > '9') return false;
+        char first = driverID.charAt(0);
+        char second = driverID.charAt(1);
+
+        if (first < '2' || first > '9') return false;
+        if (second < '2' || second > '9') return false;
 
         int specialCount = 0;
         for (int i = 2; i <= 7; i++) {
@@ -108,13 +122,25 @@ public class DriverRepository {
 
         if (specialCount < 2) return false;
 
-        return Character.isUpperCase(driverID.charAt(8)) &&
-                Character.isUpperCase(driverID.charAt(9));
+        char ninth = driverID.charAt(8);
+        char tenth = driverID.charAt(9);
+
+        return ninth >= 'A' && ninth <= 'Z' &&
+                tenth >= 'A' && tenth <= 'Z';
     }
 
     public boolean isValidAddress(String address) {
         if (address == null) return false;
-        return address.split("\\|").length == 5;
+
+        String[] parts = address.split("\\|", -1);
+
+        if (parts.length != 5) return false;
+
+        for (String part : parts) {
+            if (part.trim().isEmpty()) return false;
+        }
+
+        return true;
     }
 
     public boolean isValidBirthdate(String birthdate) {

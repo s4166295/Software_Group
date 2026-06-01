@@ -1,8 +1,8 @@
 package IBDS;
 
 public class Driver {
-    private String driverID;
-    private String name;
+    private final String driverID;
+    private final String name;
     private int experienceYears;
     private String licenseType;
     private String address;
@@ -17,17 +17,45 @@ public class Driver {
         this.birthdate = birthdate;
     }
 
-    public String getDriverID() { return driverID; }
-    public String getName() { return name; }
-    public int getExperienceYears() { return experienceYears; }
-    public String getLicenseType() { return licenseType; }
-    public String getAddress() { return address; }
-    public String getBirthdate() { return birthdate; }
+    public String getDriverID() {
+        return driverID;
+    }
 
-    public void setExperienceYears(int experienceYears) { this.experienceYears = experienceYears; }
-    public void setLicenseType(String licenseType) { this.licenseType = licenseType; }
-    public void setAddress(String address) { this.address = address; }
-    public void setBirthdate(String birthdate) { this.birthdate = birthdate; }
+    public String getName() {
+        return name;
+    }
+
+    public int getExperienceYears() {
+        return experienceYears;
+    }
+
+    public String getLicenseType() {
+        return licenseType;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getBirthdate() {
+        return birthdate;
+    }
+
+    public void setExperienceYears(int experienceYears) {
+        this.experienceYears = experienceYears;
+    }
+
+    public void setLicenseType(String licenseType) {
+        this.licenseType = licenseType;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setBirthdate(String birthdate) {
+        this.birthdate = birthdate;
+    }
 
     public String toFileString() {
         return driverID + "," + name + "," + experienceYears + "," + licenseType + "," + address + "," + birthdate;
