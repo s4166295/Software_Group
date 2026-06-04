@@ -7,6 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class BusRepositoryIntegrationTest {
 
+    // BI1 checks that valid bus data is saved and retrieved using the real TXT file.
     @Test
     void validBusShouldBeStoredAndRetrieved() {
         File file = new File("bus-integration1.txt");
