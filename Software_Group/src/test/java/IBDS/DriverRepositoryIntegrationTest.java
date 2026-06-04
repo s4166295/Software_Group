@@ -58,7 +58,9 @@ public class DriverRepositoryIntegrationTest {
         assertEquals("25|Collins Street|Melbourne|VIC|Australia", storedDriver.getAddress());
         assertEquals("15-08-1988", storedDriver.getBirthdate());
     }
-
+    // DI2:
+// Verifies that a driver with an invalid Driver ID is rejected
+// and is not stored in the TXT file.
     @Test
     @DisplayName("ITD-02: Invalid driver is rejected and is not written to TXT file")
     void invalidDriverIsRejectedAndNotStored() {
