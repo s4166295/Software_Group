@@ -26,7 +26,7 @@ public class BusRepositoryIntegrationTest {
 
         //file.delete();
     }
-
+    // BI2 checks that invalid bus IDs are rejected and not written to storage.
     @Test
     void invalidBusShouldNotBeStored() {
         File file = new File("bus-integration2.txt");
