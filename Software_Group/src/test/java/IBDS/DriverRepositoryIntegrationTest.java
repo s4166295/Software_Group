@@ -5,125 +5,118 @@ import java.io.File;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class DriverRepositoryIntegrationTest {
+public class BusRepositoryIntegrationTest {
 
-    // DI1:
-    // Verifies that a valid driver record can be successfully stored
+    // BI1:
+    // Verifies that a valid bus record can be successfully stored
     // in the TXT file and later retrieved from the repository.
     @Test
-    void validDriverShouldBeStoredAndRetrieved() {
-        File file = new File("driver-integration1.txt");
+    void validBusShouldBeStoredAndRetrieved() {
+        File file = new File("bus-integration1.txt");
         file.delete();
 
-        DriverRepository repo = new DriverRepository(file.getPath());
+        BusRepository repo = new BusRepository(file.getPath());
 
-        Driver driver = new Driver(
-                "23@@abcdAB",
-                "John Smith",
-                5,
-                "Medium",
-                "12|Main Street|Melbourne|VIC|Australia",
-                "10-10-1995"
+        Bus bus = new Bus(
+                "12345678",
+                40,
+                80.0,
+                "Diesel"
         );
 
-        assertTrue(repo.addDriver(driver));
+        assertTrue(repo.addBus(bus));
 
-        Driver retrieved = repo.retrieveDriver("23@@abcdAB");
+        Bus retrieved = repo.retrieveBus("12345678");
 
         assertNotNull(retrieved);
+        assertEquals("12345678", retrieved.getBusID());
 
         file.delete();
     }
 
-    // DI2:
-    // Verifies that a driver with an invalid Driver ID is rejected
+    // BI2:
+    // Verifies that a bus with an invalid Bus ID is rejected
     // and is not stored in the TXT file.
     @Test
-    void invalidDriverShouldNotBeStored() {
-        File file = new File("driver-integration2.txt");
+    void invalidBusShouldNotBeStored() {
+        File file = new File("bus-integration2.txt");
         file.delete();
 
-        DriverRepository repo = new DriverRepository(file.getPath());
+        BusRepository repo = new BusRepository(file.getPath());
 
-        Driver driver = new Driver(
-                "123",
-                "John Smith",
-                5,
-                "Medium",
-                "12|Main Street|Melbourne|VIC|Australia",
-                "10-10-1995"
+        Bus bus = new Bus(
+                "1234ABCD",
+                40,
+                80.0,
+                "Diesel"
         );
 
-        assertFalse(repo.addDriver(driver));
-        assertEquals(0, repo.countDrivers());
+        assertFalse(repo.addBus(bus));
+        assertEquals(0, repo.countBuses());
 
         file.delete();
     }
 
-    // DI3:
-    // Verifies that updates to an existing driver are successfully
+    // BI3:
+    // Verifies that updates to an existing bus are successfully
     // saved and persisted within the repository storage.
     @Test
-    void updatedDriverShouldPersist() {
-        File file = new File("driver-integration3.txt");
+    void updatedBusShouldPersist() {
+        File file = new File("bus-integration3.txt");
         file.delete();
 
-        DriverRepository repo = new DriverRepository(file.getPath());
+        BusRepository repo = new BusRepository(file.getPath());
 
-        Driver original = new Driver(
-                "24@@abcdAB",
-                "Sarah Lee",
-                5,
-                "Medium",
-                "12|Main Street|Melbourne|VIC|Australia",
-                "10-10-1995"
+        Bus original = new Bus(
+                "87654321",
+                50,
+                80.0,
+                "Diesel"
         );
 
-        repo.addDriver(original);
+        repo.addBus(original);
 
-        Driver updated = new Driver(
-                "24@@abcdAB",
-                "Sarah Lee",
-                6,
-                "Heavy",
-                "99|New Street|Melbourne|VIC|Australia",
-                "10-10-1995"
+        Bus updated = new Bus(
+                "87654321",
+                40,
+                70.0,
+                "Diesel"
         );
 
-        assertTrue(repo.updateDriver(updated));
+        assertTrue(repo.updateBus(updated));
+
+        Bus retrieved = repo.retrieveBus("87654321");
+
+        assertEquals(40, retrieved.getCapacity());
 
         file.delete();
     }
 
-    // DI4:
+    // BI4:
     // Verifies that the repository correctly updates and maintains
-    // the total number of stored driver records.
+    // the total number of stored bus records.
     @Test
-    void driverCountShouldUpdateCorrectly() {
-        File file = new File("driver-integration4.txt");
+    void busCountShouldUpdateCorrectly() {
+        File file = new File("bus-integration4.txt");
         file.delete();
 
-        DriverRepository repo = new DriverRepository(file.getPath());
+        BusRepository repo = new BusRepository(file.getPath());
 
-        repo.addDriver(new Driver(
-                "25@@abcdAB",
-                "A",
-                5,
-                "Medium",
-                "1|A|Melbourne|VIC|Australia",
-                "10-10-1995"
+        repo.addBus(new Bus(
+                "11112222",
+                40,
+                80.0,
+                "Diesel"
         ));
 
-        repo.addDriver(new Driver(
-                "26@@abcdAB",
-                "B",
-                5,
-                "Medium",
-                "2|B|Melbourne|VIC|Australia",
-                "10-10-1995"
+        repo.addBus(new Bus(
+                "33334444",
+                45,
+                70.0,
+                "Hybrid"
         ));
 
-        assertEquals(2, repo.countDrivers());
+        assertEquals(2, repo.countBuses());
 
         file.delete();
     }
