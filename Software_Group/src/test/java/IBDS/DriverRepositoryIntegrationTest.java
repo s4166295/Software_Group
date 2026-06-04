@@ -34,7 +34,9 @@ public class DriverRepositoryIntegrationTest {
                 "15-08-1988"
         );
     }
-
+    // DI1:
+// Verifies that a valid driver record can be successfully stored
+// in the TXT file and later retrieved from the repository.
     @Test
     @DisplayName("ITD-01: Valid driver is stored correctly and can be retrieved from TXT file")
     void validDriverIsStoredCorrectlyAndRetrievedFromFile() {
