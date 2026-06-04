@@ -7,6 +7,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class DriverRepositoryIntegrationTest {
 
+    // DI1:
+    // Verifies that a valid driver record can be successfully stored
+    // in the TXT file and later retrieved from the repository.
     @Test
     void validDriverShouldBeStoredAndRetrieved() {
         File file = new File("driver-integration1.txt");
@@ -32,6 +35,9 @@ public class DriverRepositoryIntegrationTest {
         file.delete();
     }
 
+    // DI2:
+    // Verifies that a driver with an invalid Driver ID is rejected
+    // and is not stored in the TXT file.
     @Test
     void invalidDriverShouldNotBeStored() {
         File file = new File("driver-integration2.txt");
@@ -54,6 +60,9 @@ public class DriverRepositoryIntegrationTest {
         file.delete();
     }
 
+    // DI3:
+    // Verifies that updates to an existing driver are successfully
+    // saved and persisted within the repository storage.
     @Test
     void updatedDriverShouldPersist() {
         File file = new File("driver-integration3.txt");
@@ -86,6 +95,9 @@ public class DriverRepositoryIntegrationTest {
         file.delete();
     }
 
+    // DI4:
+    // Verifies that the repository correctly updates and maintains
+    // the total number of stored driver records.
     @Test
     void driverCountShouldUpdateCorrectly() {
         File file = new File("driver-integration4.txt");
