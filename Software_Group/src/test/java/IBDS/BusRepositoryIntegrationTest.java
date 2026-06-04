@@ -23,7 +23,7 @@ public class BusRepositoryIntegrationTest {
         assertNotNull(retrieved);
         assertEquals("12345678", retrieved.getBusID());
 
-        file.delete();
+        //file.delete();
     }
 
     @Test
