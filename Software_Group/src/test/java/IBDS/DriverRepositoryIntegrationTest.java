@@ -111,7 +111,9 @@ public class DriverRepositoryIntegrationTest {
         assertEquals("PublicTransport", storedDriver.getLicenseType());
         assertEquals("99|Swanston Street|Melbourne|VIC|Australia", storedDriver.getAddress());
     }
-
+    // DI4:
+// Verifies that the repository correctly updates and maintains
+// the total number of stored driver records.
     @Test
     @DisplayName("ITD-04: Driver count updates correctly after adding multiple valid drivers")
     void driverCountUpdatesCorrectlyAfterAddingDrivers() {
