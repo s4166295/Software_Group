@@ -93,7 +93,7 @@ public class BusRepositoryIntegrationTest {
     }
 
     // BI4:
-    // Verifies that the repository correctly updates and maintains
+    // Verifies that the repository correctly updates and maintain
     // the total number of stored bus records.
     @Test
     void busCountShouldUpdateCorrectly() {
