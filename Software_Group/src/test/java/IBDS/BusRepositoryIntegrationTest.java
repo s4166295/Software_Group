@@ -41,7 +41,7 @@ public class BusRepositoryIntegrationTest {
 
         file.delete();
     }
-
+    // BI3 checks that bus updates are persisted after repository operations.
     @Test
     void updatedBusShouldPersist() {
         File file = new File("bus-integration3.txt");
