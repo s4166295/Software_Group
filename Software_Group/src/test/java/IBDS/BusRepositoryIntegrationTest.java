@@ -62,7 +62,7 @@ public class BusRepositoryIntegrationTest {
 
         file.delete();
     }
-
+    // BI4 checks that bus record counts update correctly after adding buses.
     @Test
     void busCountShouldUpdateCorrectly() {
         File file = new File("bus-integration4.txt");
