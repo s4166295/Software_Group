@@ -24,7 +24,7 @@ public class BusRepositoryIntegrationTest {
         assertNotNull(retrieved);
         assertEquals("12345678", retrieved.getBusID());
 
-        file.delete();
+        //file.delete();
     }
     // BI2 checks that invalid bus IDs are rejected and not written to storage.
     @Test
