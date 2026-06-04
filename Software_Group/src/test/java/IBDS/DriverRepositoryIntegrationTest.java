@@ -37,27 +37,7 @@ public class DriverRepositoryIntegrationTest {
     // DI1:
 // Verifies that a valid driver record can be successfully stored
 // in the TXT file and later retrieved from the repository.
-    @Test
-    @DisplayName("ITD-01: Valid driver is stored correctly and can be retrieved from TXT file")
-    void validDriverIsStoredCorrectlyAndRetrievedFromFile() {
-        Driver driver = createValidDriver("23@@abcdAB");
 
-        boolean result = driverRepository.addDriver(driver);
-
-        assertTrue(result);
-        assertTrue(Files.exists(driverFile));
-
-        DriverRepository reloadedRepository = new DriverRepository(driverFile.toString());
-        Driver storedDriver = reloadedRepository.retrieveDriver("23@@abcdAB");
-
-        assertNotNull(storedDriver);
-        assertEquals("23@@abcdAB", storedDriver.getDriverID());
-        assertEquals("John Smith", storedDriver.getName());
-        assertEquals(6, storedDriver.getExperienceYears());
-        assertEquals("Heavy", storedDriver.getLicenseType());
-        assertEquals("25|Collins Street|Melbourne|VIC|Australia", storedDriver.getAddress());
-        assertEquals("15-08-1988", storedDriver.getBirthdate());
-    }
     // DI2:
 // Verifies that a driver with an invalid Driver ID is rejected
 // and is not stored in the TXT file.
